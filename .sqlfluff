@@ -1,0 +1,56 @@
+[sqlfluff]
+templater = dbt
+dialect = bigquery
+[sqlfluff:rules]
+#standardise indentation sizes/formats
+indentation:tab_space_size = 4
+indentation:indent_unit = space
+ 
+# trailing commas only
+layout:type:comma:line_position = trailing
+ 
+# When an operator splits a line of code over two lines, the operator should be on the second one
+operator_new_lines = after
+ 
+#line length controls:
+max_line_length = 80
+ 
+# if a comment would take the line over the maximum length that's ok, or if the whole line is a comment
+ignore_comment_clauses = true
+ignore_comment_lines = true
+ 
+# table qualification rules
+# even when there is a single table it should be aliased and aliasing should have an explicit AS keyword
+# This is currently disabled as doesn't work with BigQuery structs
+# single_table_references = qualified
+aliasing = explicit
+ 
+# table aliases should be long enough to easily identify but not so long that they impede understanding
+min_alias_length = 3
+max_alias_length = 5
+ 
+# subqueries should be converted to CTE's in all cases - disabled for now after discussion
+# forbid_subquery_in = both
+ 
+# when working with DBT ending statements with semicolons sometimes causes issues, so disable that rule
+require_final_semicolon = false
+ 
+# group by should always use column names
+group_by_and_order_by_style = explicit
+ 
+# indentation rules
+[sqlfluff:indentation]
+indented_joins = true
+# this means joins are indented by one unit and their conditions are also indented by one unit
+ 
+[sqlfluff:rules:capitalisation.keywords]
+# keywords should be upper case, e.g SELECT, WHERE
+capitalisation_policy = upper
+ 
+# column references and names should be lowercase to enable distinguishment between functions/keywords and columns
+[sqlfluff:rules:capitalisation.identifiers]
+extended_capitalisation_policy = lower
+ 
+# function names should be upper case, e.g SUM, COUNT
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = upper

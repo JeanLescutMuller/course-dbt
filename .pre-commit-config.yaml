@@ -1,0 +1,32 @@
+# all commands by default will run on every commit
+default_install_hook_types: [pre-commit]
+default_stages: [commit]
+ 
+# some configs are only available after v2.18
+minimum_pre_commit_version: '2.18'
+ 
+repos:
+  #This is the repo from where pre-commit pull the hook from
+  - repo: https://github.com/sqlfluff/sqlfluff
+    #This is the version (latest at the moment) of the hook
+    rev: 2.3.5
+    hooks:
+      - id: sqlfluff-lint # this command runs at the commit [default stage]
+        # this is the list of dependencies that pre-commit install
+        additional_dependencies: [
+          'dbt-bigquery==1.7.6',
+          'sqlfluff-templater-dbt==2.3.5'
+        ]
+      - id: sqlfluff-fix
+        stages: [manual]  # this command is available only to run manually
+        additional_dependencies: [
+          'dbt-bigquery==1.7.6',
+          'sqlfluff-templater-dbt==2.3.5'
+        ]
+  #This is the repo from where pre-commit pull the hook from
+  - repo: https://github.com/adrienverge/yamllint.git
+    #This is the version (latest at the moment) of the hook
+    rev: v1.35.1
+    hooks:
+      - id: yamllint # this command runs at the commit [default stage]
+        args: [-c=.yamllint] # this is the list of args passed. The yamllint conf file

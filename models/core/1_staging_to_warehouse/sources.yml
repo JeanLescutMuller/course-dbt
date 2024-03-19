@@ -1,0 +1,10 @@
+version: 2
+sources:
+    - name: theLook_ecommerce_source
+      database: bigquery-public-data
+      schema: thelook_ecommerce
+      tables:
+        - name: users
+        - name: order_items
+        - name: orders
+        - name: products

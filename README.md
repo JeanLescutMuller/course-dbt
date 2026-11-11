@@ -1,3 +1,7 @@
+# course-dbt
+
+**Exercises and starter project for a fundamental dbt (data build tool) training course, for junior data scientists and analytics engineers.**
+
 Welcome to your new dbt project!
 
 ### Using the starter project
